@@ -1,6 +1,6 @@
 # Define the provider
 provider "aws" {
-  region = "eu-north-1"  # Change this to your desired region
+  region = "eu-north-1" # Change this to your desired region
 }
 
 # Create a new VPC
@@ -49,7 +49,7 @@ resource "aws_security_group" "allow_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Open to all (Adjust as per your need)
+    cidr_blocks = ["0.0.0.0/0"] # Open to all (Adjust as per your need)
   }
 
   egress {
@@ -66,14 +66,14 @@ resource "aws_security_group" "allow_ssh" {
 
 # EC2 Instance
 resource "aws_instance" "my_ec2" {
-  ami           = "ami-046822148e7ba2bdf"   # Replace with the correct AMI ID
+  ami           = "ami-046822148e7ba2bdf" # Replace with the correct AMI ID
   instance_type = "t3.micro"
 
   # Attach the EC2 instance to the subnet
   subnet_id                   = aws_subnet.my_subnet.id
   associate_public_ip_address = true
 
-  key_name = "my-ec2-key-pair"  # Make sure you have your SSH key pair
+  key_name = "my-ec2-key-pair" # Make sure you have your SSH key pair
 
   # Specify the security group
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
